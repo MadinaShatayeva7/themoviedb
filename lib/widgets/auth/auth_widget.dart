@@ -26,7 +26,6 @@ class _AuthWidgetState extends State<AuthWidget>{
 }
 
 class _AuthUnfo extends StatelessWidget {
-  //final _AuthUnfo({Key? key}) : super(key: key);
 
   final textStyle = TextStyle(fontSize: 16, color: Colors.black);
 

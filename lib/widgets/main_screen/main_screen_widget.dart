@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:themoviedb/widgets/movie_screen/movie_screen_widget.dart';
 
-class MainScreenWidget extends StatefulWidget{
+class MainScreenWidget extends StatefulWidget {
   MainScreenWidget({Key? key}) : super(key: key);
 
   @override
@@ -9,22 +10,12 @@ class MainScreenWidget extends StatefulWidget{
   }
 }
 
-class _MainScreenWidget extends State<MainScreenWidget>{
-   int _selectedTab = 0;
-   static const List<Widget> _widgetTabs = <Widget>[
-    Text(
-      'Главная',
-    ),
-    Text(
-      'Фильмы',
-    ),
-    Text(
-      'Сериалы',
-    ),
-  ];
+class _MainScreenWidget extends State<MainScreenWidget> {
+  int _selectedTab = 0;
+  static List<Widget> _widgetTabs = <Widget>[];
 
   void onselectedTab(int index) {
-    if(_selectedTab == index) return;
+    if (_selectedTab == index) return;
     setState(() {
       _selectedTab = index;
     });
@@ -34,12 +25,21 @@ class _MainScreenWidget extends State<MainScreenWidget>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('TMDB')),
-      body: Center( 
-      child: _widgetTabs[_selectedTab]),
+      body: IndexedStack(
+        index: _selectedTab,
+        children: [
+        Text(
+          'Главная',
+        ),
+        MovieScreen(),
+        Text(
+          'Сериалы',
+        ),
+      ]),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedTab,
         items: [
-        BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Главная',
           ),
@@ -51,8 +51,8 @@ class _MainScreenWidget extends State<MainScreenWidget>{
             icon: Icon(Icons.home),
             label: 'Сериалы',
           ),
-      ],
-      onTap: onselectedTab,
+        ],
+        onTap: onselectedTab,
       ),
     );
   }
